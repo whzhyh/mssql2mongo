@@ -1,0 +1,8 @@
+{
+    "name": "mssql2mongo",
+    "version": "0.0.1",
+    "description": "import data from mssql to mongodb",
+    "dependencies": {
+        "tedious": "0.1.5"
+    }
+}
