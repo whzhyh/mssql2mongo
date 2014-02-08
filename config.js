@@ -3,8 +3,7 @@ exports.config = {
     sqlconfig: {
         userName: 'sa',
         password: 'rgywhzh',
-        server: '10.211.55.8',
-
+        server: '10.211.55.8'
     },
     transform: [
         {
@@ -16,6 +15,11 @@ exports.config = {
             "sql_table": "GroupData10.dbo.Group902",
             "count": 11,
             "mongo_table": "group"
+        },
+        {
+            "sql_table": "QunInfo1.dbo.QunList1",
+            "count": 11,
+            "mongo_table": "qun"
         }
     ]
 };
