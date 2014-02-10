@@ -7,15 +7,15 @@ var config = require('./config.js').config;
 var type_mapping = require('./type_mapping.js');
 
 var Schema = mongoose.Schema;
-var pool = new ConnectionPool({}, config.sqlconfig);
+var pool = new ConnectionPool({}, config.mssqlconfig);
 var counter = 1;
 
-mongoose.connect(config.connection);
+mongoose.connect(config.mongodb);
 
-config.transform.forEach(function (tran) {
+config.rules.forEach(function (rule) {
     pool.requestConnection(function (err, connection) {
         if (!err) {
-            var query = util.build_sql_query(tran.sql_table, tran.count);
+            var query = util.build_sql_query(rule);
             var m_schema, schema = {}, Model;
             
             request = new Request(query, function (err, rowCount) {
@@ -34,10 +34,10 @@ config.transform.forEach(function (tran) {
 
                 m_schema = new Schema(schema);
 
-                if (mongoose.modelNames().indexOf(tran.mongo_table) === -1) {
-                    Model = mongoose.model(tran.mongo_table, m_schema);
+                if (mongoose.modelNames().indexOf(rule.mongodb_table) === -1) {
+                    Model = mongoose.model(rule.mongodb_table, m_schema);
                 } else {
-                    Model = mongoose.model(tran.mongo_table);
+                    Model = mongoose.model(rule.mongodb_table);
                 }
 
             });
@@ -59,7 +59,6 @@ config.transform.forEach(function (tran) {
                     }
                 });
             });
-
 
             connection.on('connect', function (err) {
                 connection.execSql(request);

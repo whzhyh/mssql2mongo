@@ -3,6 +3,8 @@
     "version": "0.0.1",
     "description": "import data from mssql to mongodb",
     "dependencies": {
-        "tedious": "0.1.5"
+        "tedious": "0.1.5",
+        "tedious-connection-pool": "0.1.1",
+        "mongoose": "3.8.6"
     }
 }
